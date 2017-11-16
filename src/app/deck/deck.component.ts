@@ -50,7 +50,7 @@ export class DeckComponent implements OnInit {
       event.dataTransfer.dropEffect = 'move';
   }
 
-  onDragDeck(event: DragEvent, indexOfCard: number) {
+  onDragDeck(event: DragEvent) {
 
       event.dataTransfer.setData('data', JSON.stringify(this.cards));
       event.dataTransfer.dropEffect = 'move';

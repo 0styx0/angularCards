@@ -11,10 +11,10 @@
     *ngIf="minimized"
     class="card deckSummary"
     draggable="true"
-    (dragstart)="onDragDeck($event, i)"
+    (dragstart)="onDragDeck($event)"
     (drop)="onDrop($event, dropData)"
     (dragover)="allowDrop($event)"
-    (dragend)="removeDeck($event, i)"
+    (dragend)="removeDeck($event)"
   >
     Event: Pile {{ deckNumber }}
     Competitors: {{ cards.length }}
