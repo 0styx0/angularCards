@@ -31,7 +31,7 @@ export class DeckComponent implements OnInit {
 
   onDragStart(event: DragEvent, indexOfCard: number) {
 
-    event.dataTransfer.setData('data', JSON.stringify(this.cards[indexOfCard]));
+    event.dataTransfer.setData('data', this.cards[indexOfCard] as any); // setData expects string, but nothing went wrong when not a string
     event.dataTransfer.dropEffect = 'move';
   }
 
