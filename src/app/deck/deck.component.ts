@@ -10,6 +10,8 @@ export class DeckComponent implements OnInit {
 
   @Input() cards = [0, 1, 2, 3];
 
+  minimizedCards = [];
+
   ngOnInit() {}
 
   moveToTop(e: Event, i: number) {
@@ -57,6 +59,19 @@ export class DeckComponent implements OnInit {
 
     if (cardWasMoved) {
       this.cards.splice(indexOfCard, 1);
+    }
+  }
+
+  minimize() {
+
+    if (this.minimizedCards.length > 0) {
+
+      this.cards.unshift(...this.minimizedCards);
+      this.minimizedCards = [];
+    } else {
+
+      this.minimizedCards = this.cards.slice(0, this.cards.length - 1);
+      this.cards.splice(0, this.cards.length - 1);
     }
   }
 
