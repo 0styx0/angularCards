@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 
 @Component({
   selector: 'app-deck',
@@ -8,7 +8,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class DeckComponent implements OnInit {
 
-  cards = [0, 1, 2, 3];
+  @Input() cards = [0, 1, 2, 3];
 
   ngOnInit() {}
 
