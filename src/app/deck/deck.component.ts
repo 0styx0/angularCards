@@ -40,7 +40,7 @@ export class DeckComponent implements OnInit {
   /**
    * Adds card to deck when card is dropped
    */
-  onDrop(event, data) {
+  onDrop(event) {
 
     const dataTransfer = event.dataTransfer.getData('data');
     this.cards.push(dataTransfer);

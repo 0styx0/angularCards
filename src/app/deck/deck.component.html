@@ -2,9 +2,8 @@
 <div id="container">
   <div
     class="card initial-card"
-    (drop)="onDrop($event, dropData)"
+    (drop)="onDrop($event)"
     (dragover)="allowDrop($event)"
-    (dragend)="removeCard($event, i)"
   >
   </div>
   <div
