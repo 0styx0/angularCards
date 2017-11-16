@@ -6,6 +6,11 @@
     (click)="moveToTop($event, i)"
     [style.top]="5 * i + '%'"
     [style.left]="5 * i + '%'"
+    draggable="true"
+    (dragstart)="onDragStart($event, i)"
+    (drop)="onDrop($event, dropData)"
+    (dragover)="allowDrop($event)"
+    (dragend)="removeCard($event, i)"
   >
       {{ card }}
     </div>

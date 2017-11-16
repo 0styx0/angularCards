@@ -29,4 +29,35 @@ export class DeckComponent implements OnInit {
     }
   }
 
+  onDragStart(event: DragEvent, indexOfCard: number) {
+
+    event.dataTransfer.setData('data', JSON.stringify(this.cards[indexOfCard]));
+    event.dataTransfer.dropEffect = 'move';
+  }
+
+  /**
+   * Adds card to deck when card is dropped
+   */
+  onDrop(event, data) {
+
+    const dataTransfer = event.dataTransfer.getData('data');
+    this.cards.push(dataTransfer);
+  }
+
+  allowDrop(event) {
+    event.preventDefault();
+  }
+
+  /**
+   * Removes card from deck once it's been dropped somewhere else
+   */
+  removeCard(event: DragEvent, indexOfCard: number) {
+
+    const cardWasMoved = event.dataTransfer.dropEffect;
+
+    if (cardWasMoved) {
+      this.cards.splice(indexOfCard, 1);
+    }
+  }
+
 }
