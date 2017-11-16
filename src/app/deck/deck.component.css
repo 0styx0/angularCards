@@ -6,6 +6,10 @@
     position: absolute;
 }
 
+.initial-card {
+    background-color: gainsboro;
+}
+
 #container {
     position: relative;
     height: 200px;

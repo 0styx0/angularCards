@@ -1,6 +1,13 @@
 
 <div id="container">
   <div
+    class="card initial-card"
+    (drop)="onDrop($event, dropData)"
+    (dragover)="allowDrop($event)"
+    (dragend)="removeCard($event, i)"
+  >
+  </div>
+  <div
     class="card"
     *ngFor="let card of cards; let i = index"
     (click)="moveToTop($event, i)"
