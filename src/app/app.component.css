@@ -11,3 +11,8 @@
     height: 200px;
     width: 200px;
 }
+
+input {
+    position: relative;
+    top: 30vh;
+}
