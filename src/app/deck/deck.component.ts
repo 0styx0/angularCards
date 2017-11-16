@@ -62,17 +62,27 @@ export class DeckComponent implements OnInit {
     }
   }
 
+  toggleMinimization() {
+
+    this.minimizedCards.length > 0 ? this.maximize() : this.minimize();
+  }
+
+  /**
+   * Minimizes deck such that only the top card is visible
+   */
   minimize() {
-
-    if (this.minimizedCards.length > 0) {
-
-      this.cards.unshift(...this.minimizedCards);
-      this.minimizedCards = [];
-    } else {
 
       this.minimizedCards = this.cards.slice(0, this.cards.length - 1);
       this.cards.splice(0, this.cards.length - 1);
-    }
+  }
+
+  /**
+   * Unminimizes deck
+   */
+  maximize() {
+
+      this.cards.unshift(...this.minimizedCards);
+      this.minimizedCards = [];
   }
 
 }
