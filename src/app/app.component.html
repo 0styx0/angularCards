@@ -1,13 +1,1 @@
-
-<div id="container">
-  <div
-    class="card"
-    *ngFor="let card of cards; let i = index"
-    (click)="moveToTop($event, i)"
-    [style.top]="5 * i + '%'"
-    [style.left]="5 * i + '%'"
-  >
-      {{ card }}
-    </div>
-</div>
-<input type="number" name="amount" (change)="changeAmount($event)" />
+<app-deck></app-deck>

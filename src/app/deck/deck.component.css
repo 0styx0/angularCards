@@ -1,0 +1,18 @@
+.card {
+    background-color: green;
+    width: 10vw;
+    height: 20vh;
+    border: 2px solid black;
+    position: absolute;
+}
+
+#container {
+    position: relative;
+    height: 200px;
+    width: 200px;
+}
+
+input {
+    position: relative;
+    top: 30vh;
+}
