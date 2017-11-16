@@ -17,6 +17,7 @@ import {
 export class DeckComponent implements OnInit {
 
   @Input() cards = [0, 1, 2, 3];
+  @Input() deckNumber = 0;
 
   @ViewChild('container') container: ElementRef;
 
@@ -43,19 +44,16 @@ export class DeckComponent implements OnInit {
     }
   }
 
-  onDragStart(event: DragEvent, indexOfCard: number) {
+  onDragCard(event: DragEvent, indexOfCard: number) {
 
-    if (this.minimized) {
+      event.dataTransfer.setData('data', JSON.stringify(this.cards[indexOfCard]));
+      event.dataTransfer.dropEffect = 'move';
+  }
+
+  onDragDeck(event: DragEvent, indexOfCard: number) {
 
       event.dataTransfer.setData('data', JSON.stringify(this.cards));
       event.dataTransfer.dropEffect = 'move';
-
-    } else {
-
-      // setData expects string, but nothing went wrong when not a string
-      event.dataTransfer.setData('data', JSON.stringify(this.cards[indexOfCard]));
-      event.dataTransfer.dropEffect = 'move';
-    }
   }
 
   /**
@@ -84,16 +82,19 @@ export class DeckComponent implements OnInit {
 
     const cardWasMoved = event.dataTransfer.dropEffect === 'move';
 
-    if (this.minimized && cardWasMoved) {
-
-      this.cards = [];
-      this.minimized = false;
-
-    } else if (cardWasMoved) {
-
+    if (cardWasMoved) {
       this.cards.splice(indexOfCard, 1);
     }
+  }
 
+  removeDeck(event: DragEvent, indexOfCard: number) {
+
+    const cardWasMoved = event.dataTransfer.dropEffect === 'move';
+
+    if (cardWasMoved) {
+      this.cards = [];
+      this.minimized = false;
+    }
   }
 
   /**
@@ -104,6 +105,7 @@ export class DeckComponent implements OnInit {
       const container = this.container.nativeElement;
 
       let i = 0;
+      const animationDuration = 1000;
 
       for (const card of container.querySelectorAll('.minimizable')) {
 
@@ -117,17 +119,22 @@ export class DeckComponent implements OnInit {
           {
             top: distanceToMove,
             left: distanceToMove
-          }];
+        }];
 
-          card.animate(this.minimized ? positions : positions.reverse(), {
-              duration: 2000,
-              fill: 'forwards'
-          });
+        card.animate(this.minimized ? positions : positions.reverse(), {
+            duration: animationDuration,
+            fill: 'forwards'
+        });
 
-          i++;
+        i++;
       }
 
-      this.minimized = !this.minimized;
+      // show summary card after minimization is complete and remove it before doing maximizing animation
+      if (this.minimized) {
+        this.minimized = false;
+      } else {
+        window.setTimeout(() => this.minimized = true, animationDuration);
+      }
   }
 
 }

@@ -6,6 +6,20 @@
     (dragover)="allowDrop($event)"
   >
   </div>
+
+  <div
+    *ngIf="minimized"
+    class="card deckSummary"
+    draggable="true"
+    (dragstart)="onDragDeck($event, i)"
+    (drop)="onDrop($event, dropData)"
+    (dragover)="allowDrop($event)"
+    (dragend)="removeDeck($event, i)"
+  >
+    Event: Pile {{ deckNumber }}
+    Competitors: {{ cards.length }}
+  </div>
+
   <div
     class="card minimizable"
     *ngFor="let card of cards; let i = index"
@@ -13,7 +27,7 @@
     [style.top]="5 * i + '%'"
     [style.left]="5 * i + '%'"
     draggable="true"
-    (dragstart)="onDragStart($event, i)"
+    (dragstart)="onDragCard($event, i)"
     (drop)="onDrop($event, dropData)"
     (dragover)="allowDrop($event)"
     (dragend)="removeCard($event, i)"
