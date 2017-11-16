@@ -45,8 +45,17 @@ export class DeckComponent implements OnInit {
 
   onDragStart(event: DragEvent, indexOfCard: number) {
 
-    event.dataTransfer.setData('data', this.cards[indexOfCard] as any); // setData expects string, but nothing went wrong when not a string
-    event.dataTransfer.dropEffect = 'move';
+    if (this.minimized) {
+
+      event.dataTransfer.setData('data', JSON.stringify(this.cards));
+      event.dataTransfer.dropEffect = 'move';
+
+    } else {
+
+      // setData expects string, but nothing went wrong when not a string
+      event.dataTransfer.setData('data', JSON.stringify(this.cards[indexOfCard]));
+      event.dataTransfer.dropEffect = 'move';
+    }
   }
 
   /**
@@ -55,7 +64,13 @@ export class DeckComponent implements OnInit {
   onDrop(event) {
 
     const dataTransfer = event.dataTransfer.getData('data');
-    this.cards.push(dataTransfer);
+
+    if (Array.isArray(JSON.parse(dataTransfer))) {
+
+      this.cards.push(...JSON.parse(dataTransfer));
+    } else {
+      this.cards.push(JSON.parse(dataTransfer));
+    }
   }
 
   allowDrop(event) {
@@ -69,9 +84,16 @@ export class DeckComponent implements OnInit {
 
     const cardWasMoved = event.dataTransfer.dropEffect === 'move';
 
-    if (cardWasMoved) {
+    if (this.minimized && cardWasMoved) {
+
+      this.cards = [];
+      this.minimized = false;
+
+    } else if (cardWasMoved) {
+
       this.cards.splice(indexOfCard, 1);
     }
+
   }
 
   /**
