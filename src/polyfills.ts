@@ -55,7 +55,7 @@ import 'core-js/es7/reflect';
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
-
+import 'web-animations-js/web-animations.min'; // CUSTOM addition, for maximization of slides
 
 /***************************************************************************************************
  * APPLICATION IMPORTS

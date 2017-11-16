@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Input,
+  ViewChild,
+  ElementRef,
+  Renderer2
+} from '@angular/core';
 
 @Component({
   selector: 'app-deck',
@@ -10,9 +18,13 @@ export class DeckComponent implements OnInit {
 
   @Input() cards = [0, 1, 2, 3];
 
-  minimizedCards = [];
+  @ViewChild('container') container: ElementRef;
+
+  minimized = false;
 
   ngOnInit() {}
+
+  constructor(private renderer: Renderer2) {}
 
   moveToTop(e: Event, i: number) {
 
@@ -62,27 +74,38 @@ export class DeckComponent implements OnInit {
     }
   }
 
+  /**
+   * Does the animation that minimizes or maximizes deck
+   */
   toggleMinimization() {
 
-    this.minimizedCards.length > 0 ? this.maximize() : this.minimize();
-  }
+      const container = this.container.nativeElement;
 
-  /**
-   * Minimizes deck such that only the top card is visible
-   */
-  minimize() {
+      let i = 0;
 
-      this.minimizedCards = this.cards.slice(0, this.cards.length - 1);
-      this.cards.splice(0, this.cards.length - 1);
-  }
+      for (const card of container.querySelectorAll('.minimizable')) {
 
-  /**
-   * Unminimizes deck
-   */
-  maximize() {
+        const distanceToMove = (5 * i) + '%';
 
-      this.cards.unshift(...this.minimizedCards);
-      this.minimizedCards = [];
+        const positions = [
+          {
+            top: 0,
+            left: 0
+          },
+          {
+            top: distanceToMove,
+            left: distanceToMove
+          }];
+
+          card.animate(this.minimized ? positions : positions.reverse(), {
+              duration: 2000,
+              fill: 'forwards'
+          });
+
+          i++;
+      }
+
+      this.minimized = !this.minimized;
   }
 
 }

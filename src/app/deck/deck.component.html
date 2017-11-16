@@ -1,5 +1,5 @@
 
-<div id="container">
+<div id="container" #container>
   <div
     class="card initial-card"
     (drop)="onDrop($event)"
@@ -7,7 +7,7 @@
   >
   </div>
   <div
-    class="card"
+    class="card minimizable"
     *ngFor="let card of cards; let i = index"
     (click)="moveToTop($event, i)"
     [style.top]="5 * i + '%'"
@@ -21,5 +21,5 @@
       {{ card }}
     </div>
 </div>
-<button type="button" (click)="toggleMinimization()"> {{ this.minimizedCards.length > 0 ? 'Maximize' : 'Minimize' }}</button>
+<button type="button" (click)="toggleMinimization()"> {{ this.minimized ? 'Maximize' : 'Minimize' }}</button>
 <input type="number" name="amount" (change)="changeAmount($event)" />
