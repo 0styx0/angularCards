@@ -87,16 +87,16 @@ export class DeckComponent implements OnInit {
    */
   removeCard(event: DragEvent, indexOfCard: number) {
 
-    const cardWasMoved = event.dataTransfer.dropEffect === 'move';
+    const cardWasMoved = event.dataTransfer.dropEffect !== 'none';
 
     if (cardWasMoved) {
       this.cards.splice(indexOfCard, 1);
     }
   }
 
-  removeDeck(event: DragEvent, indexOfCard: number) {
+  removeDeck(event: DragEvent) {
 
-    const cardWasMoved = event.dataTransfer.dropEffect === 'move';
+    const cardWasMoved = event.dataTransfer.dropEffect !== 'none';
 
     if (cardWasMoved) {
       this.cards = [];
