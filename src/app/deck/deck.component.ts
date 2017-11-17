@@ -130,7 +130,6 @@ export class DeckComponent implements OnInit {
 
         card.animate(this.minimized ? positions : positions.reverse(), {
             duration: animationDuration,
-            fill: 'forwards'
         });
 
         i++;
