@@ -26,3 +26,14 @@ input {
     font-size: 90%;
     text-align: center;
 }
+
+.deckSummary div {
+    margin-top: 37%;
+}
+
+.minimizationControls {
+    position: absolute;
+    top: 0%;
+    left: calc(82% + 0.6vw);
+    z-index: 1;
+}

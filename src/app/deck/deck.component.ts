@@ -31,7 +31,6 @@ export class DeckComponent implements OnInit {
 
     const cardToMove = this.cards.splice(i, 1)[0];
     this.cards.push(cardToMove);
-    console.log(this.cards);
   }
 
   changeAmount(e: Event) {
@@ -113,7 +112,7 @@ export class DeckComponent implements OnInit {
       const container = this.container.nativeElement;
 
       let i = 0;
-      const animationDuration = 1000;
+      const animationDuration = this.cards.length * 50;
 
       for (const card of container.querySelectorAll('.minimizable')) {
 
@@ -131,7 +130,7 @@ export class DeckComponent implements OnInit {
 
         card.animate(this.minimized ? positions : positions.reverse(), {
             duration: animationDuration,
-            // fill: 'forwards'
+            fill: 'forwards'
         });
 
         i++;
